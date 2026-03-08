@@ -62,7 +62,7 @@ class DrakePinD
 		
 	private:
 		
-		const PinD_t &_pin;
+		const PinD_t _pin;
 		ModeD_t _mode;
 		LevelD_t _level;
 		

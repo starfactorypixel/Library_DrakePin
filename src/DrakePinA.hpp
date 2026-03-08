@@ -34,7 +34,7 @@ class DrakePinA
 		
 	private:
 		
-		const PinA_t &_pin;
+		const PinA_t _pin;
 		uint32_t _sampling;
 		
 };
