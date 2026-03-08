@@ -1,0 +1,13 @@
+{
+  "name": "DrakePin",
+  "description": "",
+  "version": "1.0.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/starfactorypixel/Library_DrakePin.git"
+  },
+  "headers": [
+    "DrakePinD.hpp",
+    "DrakePinA.hpp"
+  ]
+}
