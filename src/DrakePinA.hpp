@@ -15,6 +15,12 @@ class DrakePinA
 		void Init()
 		{
 			platform_adc_init(_pin);
+			Calibration();
+		}
+		
+		void InitWithoutCalibration()
+		{
+			platform_adc_init(_pin);
 		}
 		
 		uint32_t ReadRaw()
