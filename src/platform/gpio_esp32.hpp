@@ -32,7 +32,7 @@ namespace DrakePin
 			}
 		}
 		
-		gpio_config_t conf = { (BIT(pin.pin)), m, GPIO_PULLUP_DISABLE, GPIO_PULLDOWN_DISABLE, GPIO_INTR_DISABLE };
+		gpio_config_t conf = { (BIT64(pin.pin)), m, GPIO_PULLUP_DISABLE, GPIO_PULLDOWN_DISABLE, GPIO_INTR_DISABLE };
 		if(mode == ModeD_t::InputPullup) conf.pull_up_en = GPIO_PULLUP_ENABLE;
 		if(mode == ModeD_t::InputPulldown) conf.pull_down_en = GPIO_PULLDOWN_ENABLE;
 		gpio_config(&conf);
