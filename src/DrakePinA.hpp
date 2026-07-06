@@ -3,13 +3,13 @@
 #include "DrakePinTypes.hpp"
 #include "platform/gpio_platforms.hpp"
 
-using namespace DrakePin;
-
-class DrakePinA
+namespace DrakePin
+{
+class PinA
 {
 	public:
 		
-		constexpr DrakePinA(const PinA_t &pin, uint32_t sampling) : _pin(pin), _sampling(sampling)
+		constexpr PinA(const PinA_t &pin, uint32_t sampling) : _pin(pin), _sampling(sampling)
 		{}
 		
 		void Init()
@@ -44,3 +44,6 @@ class DrakePinA
 		uint32_t _sampling;
 		
 };
+}
+
+using DrakePinA = DrakePin::PinA;

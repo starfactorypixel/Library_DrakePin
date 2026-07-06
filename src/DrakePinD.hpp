@@ -3,13 +3,13 @@
 #include "DrakePinTypes.hpp"
 #include "platform/gpio_platforms.hpp"
 
-using namespace DrakePin;
-
-class DrakePinD
+namespace DrakePin
+{
+class PinD
 {
 	public:
 		
-		constexpr DrakePinD(const PinD_t &pin, ModeD_t mode, LevelD_t level) : _pin(pin), _mode(mode), _level(level)
+		constexpr PinD(const PinD_t &pin, ModeD_t mode, LevelD_t level) : _pin(pin), _mode(mode), _level(level)
 		{}
 		
 		void Init()
@@ -67,3 +67,6 @@ class DrakePinD
 		LevelD_t _level;
 		
 };
+}
+
+using DrakePinD = DrakePin::PinD;
