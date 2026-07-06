@@ -1,7 +1,6 @@
 #pragma once
 #include <inttypes.h>
 #include "DrakePinTypes.hpp"
-#include "platform/gpio_platforms.hpp"
 
 using namespace DrakePin;
 

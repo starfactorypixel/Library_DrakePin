@@ -1,9 +1,23 @@
 #pragma once
 #include <inttypes.h>
-#include "DrakePinTypes.hpp"
+#include "../DrakePinCommon.hpp"
 
 namespace DrakePin
 {
+	struct PinD_t
+	{
+		void *port;
+		uint32_t pin;
+	};
+
+	struct PinA_t
+	{
+		void *handle;
+		void *port;
+		uint32_t pin;
+		uint32_t channel;
+	};
+
 	inline void platform_io_write(const PinD_t &pin, LevelD_t level);
 
 	inline void platform_io_init(const PinD_t &pin, ModeD_t mode, LevelD_t level)
