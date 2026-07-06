@@ -8,12 +8,12 @@ namespace DrakePin
 	{
 		uint32_t pin;
 	};
-
+	
 	struct PinA_t
 	{
 		uint32_t channel;
 	};
-
+	
 	inline void platform_io_write(const PinD_t &pin, LevelD_t level);
 	inline void platform_adc_calibration(const PinA_t &pin);
 

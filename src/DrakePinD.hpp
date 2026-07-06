@@ -1,6 +1,7 @@
 #pragma once
 #include <inttypes.h>
-#include "DrakePinTypes.hpp"
+#include "DrakePinCommon.hpp"
+#include "platform/gpio_platforms.hpp"
 
 using namespace DrakePin;
 
@@ -43,7 +44,8 @@ class DrakePinD
 		
 		void Toggle()
 		{
-			if (_level == LevelD_t::HiZ) return;
+			if(_level == LevelD_t::HiZ) return;
+			
 			_level = ((_level == LevelD_t::High) ? LevelD_t::Low : LevelD_t::High);
 			platform_io_toggle(_pin);
 		}

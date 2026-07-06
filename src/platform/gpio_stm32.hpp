@@ -6,14 +6,14 @@ namespace DrakePin
 {
 	struct PinD_t
 	{
-		void *port;
+		GPIO_TypeDef *port;
 		uint32_t pin;
 	};
-
+	
 	struct PinA_t
 	{
-		void *handle;
-		void *port;
+		ADC_HandleTypeDef *handle;
+		GPIO_TypeDef *port;
 		uint32_t pin;
 		uint32_t channel;
 	};
@@ -47,7 +47,7 @@ namespace DrakePin
 				i.Mode = GPIO_MODE_OUTPUT_OD; break;
 			}
 		}
-		HAL_GPIO_Init((GPIO_TypeDef *)pin.port, &i);
+		HAL_GPIO_Init(pin.port, &i);
 		platform_io_write(pin, level);
 		
 		return;
@@ -64,29 +64,29 @@ namespace DrakePin
 	{
 		if(level == LevelD_t::HiZ) return;
 		
-		HAL_GPIO_WritePin((GPIO_TypeDef *)pin.port, pin.pin, ((level == LevelD_t::High) ? GPIO_PIN_SET : GPIO_PIN_RESET));
+		HAL_GPIO_WritePin(pin.port, pin.pin, ((level == LevelD_t::High) ? GPIO_PIN_SET : GPIO_PIN_RESET));
 		
 		return;
 	}
 
 	inline void platform_io_toggle(const PinD_t &pin)
 	{
-		HAL_GPIO_TogglePin((GPIO_TypeDef *)pin.port, pin.pin);
+		HAL_GPIO_TogglePin(pin.port, pin.pin);
 		
 		return;
 	}
 	
 	inline LevelD_t platform_io_read(const PinD_t &pin)
 	{
-		return HAL_GPIO_ReadPin((GPIO_TypeDef *)pin.port, pin.pin) ? LevelD_t::High : LevelD_t::Low;
+		return HAL_GPIO_ReadPin(pin.port, pin.pin) ? LevelD_t::High : LevelD_t::Low;
 	}
 	
 	
 	inline void platform_adc_init(const PinA_t &pin)
 	{
 		GPIO_InitTypeDef i = {pin.pin, GPIO_MODE_ANALOG, GPIO_NOPULL, GPIO_SPEED_FREQ_HIGH};
-		HAL_GPIO_Init((GPIO_TypeDef *)pin.port, &i);
-		HAL_ADC_Start((ADC_HandleTypeDef *)pin.handle);
+		HAL_GPIO_Init(pin.port, &i);
+		HAL_ADC_Start(pin.handle);
 		
 		return;
 	}
@@ -94,10 +94,10 @@ namespace DrakePin
 	inline uint32_t platform_adc_read_raw(const PinA_t &pin, uint32_t sampling)
 	{
 		ADC_ChannelConfTypeDef c = {pin.channel, ADC_REGULAR_RANK_1, sampling};
-		HAL_ADC_ConfigChannel((ADC_HandleTypeDef *)pin.handle, &c);
-		HAL_ADC_Start((ADC_HandleTypeDef *)pin.handle);
-		HAL_ADC_PollForConversion((ADC_HandleTypeDef *)pin.handle, 10);
-		return HAL_ADC_GetValue((ADC_HandleTypeDef *)pin.handle);
+		HAL_ADC_ConfigChannel(pin.handle, &c);
+		HAL_ADC_Start(pin.handle);
+		HAL_ADC_PollForConversion(pin.handle, 10);
+		return HAL_ADC_GetValue(pin.handle);
 	}
 	
 	inline uint32_t platform_adc_read_mv(const PinA_t &pin, uint32_t sampling)
@@ -110,13 +110,13 @@ namespace DrakePin
 	
 	inline void platform_adc_calibration(const PinA_t &pin)
 	{
-		HAL_ADC_Stop((ADC_HandleTypeDef *)pin.handle);
+		HAL_ADC_Stop(pin.handle);
 		#if defined(STM32F1)
-		HAL_ADCEx_Calibration_Start((ADC_HandleTypeDef *)pin.handle);
+		HAL_ADCEx_Calibration_Start(pin.handle);
 		#elif defined(STM32H7)
-		HAL_ADCEx_Calibration_Start((ADC_HandleTypeDef *)pin.handle, ADC_CALIB_OFFSET, ADC_SINGLE_ENDED);
+		HAL_ADCEx_Calibration_Start(pin.handle, ADC_CALIB_OFFSET, ADC_SINGLE_ENDED);
 		#endif
-		HAL_ADC_Start((ADC_HandleTypeDef *)pin.handle);
+		HAL_ADC_Start(pin.handle);
 		return;
 	}
 }
