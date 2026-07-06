@@ -1,11 +1,12 @@
 #pragma once
 #include <inttypes.h>
+#include "platform/gpio_platform_types.hpp"
 
 namespace DrakePin
 {
 	struct PinD_t
 	{
-		void *port;
+		GpioPort_t port;
 		uint32_t pin;
 	};
 	
@@ -28,8 +29,8 @@ namespace DrakePin
 	
 	struct PinA_t
 	{
-		void *handle;
-		void *port;
+		AdcHandle_t handle;
+		GpioPort_t port;
 		uint32_t pin;
 		uint32_t channel;
 	};
