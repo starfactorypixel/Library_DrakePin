@@ -4,12 +4,32 @@
 
 namespace DrakePin
 {
+#if defined(ESP32)
+	struct PinD_t
+	{
+		uint32_t pin;
+	};
+
+	struct PinA_t
+	{
+		uint32_t channel;
+	};
+#else
 	struct PinD_t
 	{
 		GpioPort_t port;
 		uint32_t pin;
 	};
-	
+
+	struct PinA_t
+	{
+		AdcHandle_t handle;
+		GpioPort_t port;
+		uint32_t pin;
+		uint32_t channel;
+	};
+#endif
+
 	enum ModeD_t
 	{
 		Disable,
@@ -25,13 +45,5 @@ namespace DrakePin
 		Low = 0,
 		High = 1,
 		HiZ = 2,
-	};
-	
-	struct PinA_t
-	{
-		AdcHandle_t handle;
-		GpioPort_t port;
-		uint32_t pin;
-		uint32_t channel;
 	};
 }
