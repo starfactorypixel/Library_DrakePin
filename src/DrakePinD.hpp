@@ -43,7 +43,7 @@ class DrakePinD
 		
 		void Toggle()
 		{
-			// Если LevelD_t::HiZ то переключится в High
+			if (_level == LevelD_t::HiZ) return;
 			_level = ((_level == LevelD_t::High) ? LevelD_t::Low : LevelD_t::High);
 			platform_io_toggle(_pin);
 		}
