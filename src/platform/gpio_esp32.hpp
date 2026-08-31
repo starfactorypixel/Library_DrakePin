@@ -112,6 +112,7 @@ namespace DrakePin
 
 	inline void platform_io_toggle(const PinD_t &pin)
 	{
+		// Не работает, потому что когда порт output gpio_get_level возвращает 0
 		int v = gpio_get_level((gpio_num_t)pin.pin);
 		gpio_set_level((gpio_num_t)pin.pin, (1 - v));
 
