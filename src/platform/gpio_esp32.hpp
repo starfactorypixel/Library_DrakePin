@@ -34,11 +34,11 @@ namespace DrakePin
 			}
 			case ModeD_t::Output:
 			{
-				m = GPIO_MODE_OUTPUT; break;
+				m = GPIO_MODE_INPUT_OUTPUT; break;
 			}
 			case ModeD_t::OutputOpenDrain:
 			{
-				m = GPIO_MODE_OUTPUT_OD; break;
+				m = GPIO_MODE_INPUT_OUTPUT_OD; break;
 			}
 		}
 		
@@ -77,13 +77,13 @@ namespace DrakePin
 			}
 			case ModeD_t::Output:
 			{
-				m = GPIO_MODE_OUTPUT;
+				m = GPIO_MODE_INPUT_OUTPUT;
 				p = GPIO_FLOATING;
 				break;
 			}
 			case ModeD_t::OutputOpenDrain:
 			{
-				m = GPIO_MODE_OUTPUT_OD;
+				m = GPIO_MODE_INPUT_OUTPUT_OD;
 				p = GPIO_FLOATING;
 				break;
 			}
@@ -112,7 +112,6 @@ namespace DrakePin
 
 	inline void platform_io_toggle(const PinD_t &pin)
 	{
-		// Не работает, потому что когда порт output gpio_get_level возвращает 0
 		int v = gpio_get_level((gpio_num_t)pin.pin);
 		gpio_set_level((gpio_num_t)pin.pin, (1 - v));
 
